@@ -1,6 +1,6 @@
 ## MVC 패턴
 
-<img src="https://junhyunny.github.io/images/mvc-pattern-1.JPG" alt="img" width="300" height="350"/>  <img src="https://junhyunny.github.io/images/mvc-pattern-2.JPG" alt="img" width="500" height="350" />
+<img src="https://junhyunny.github.io/images/mvc-pattern-1.JPG" alt="img" style="zoom:33%;" /> <img src="https://junhyunny.github.io/images/mvc-pattern-2.JPG" alt="img" style="zoom: 25%;" />
 
 MVC 패턴은 **모델(Model), 뷰(View), 컨트롤러(Controller)**로 이루어진 디자인 패턴이다.
 
@@ -91,7 +91,7 @@ MVC 패턴에서 컨트롤러와 뷰는 1:N 관계를 가지며 모델과 뷰는
 
 이를 보완하기 위해 MVP, MVVM, Flux, Redux 등 다양한 패턴이 생겼다.
 
-<img src="https://junhyunny.github.io/images/mvc-pattern-3.JPG" alt="mvc-pattern-3" width="600" height="350" />
+<img src="https://junhyunny.github.io/images/mvc-pattern-3.JPG" alt="mvc-pattern-3" style="zoom:30%;" />
 
 
 
