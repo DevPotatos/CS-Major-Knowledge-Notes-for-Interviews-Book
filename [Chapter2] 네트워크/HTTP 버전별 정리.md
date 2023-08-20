@@ -13,6 +13,8 @@
 - **Stateless** - 무상태
   - 서버가 클라이언트의 상태를 보존하지 않는다.
   - 상태 유지가 필요한 경우, 세션과 쿠키를 이용한다.
+    - 세션 : 서버에 인증하기 위한 클라이언트의 정보를 서버 단에서 저장 및 관리하는 방식
+    - 쿠키 : 서버에 인증하기 위한 클라이언트의 정보를 클라이언트 단에 저장하는 값
   - 서버가 클라이언트의 상태를 관리하지 않기 때문에 **서버 확장(scale-out)에 용이**하다.
 - **Connectionless** - 비연결성
   - HTTP/1.0 기준
@@ -54,6 +56,9 @@ A page with an image
 - HTTP 헤더 개념의 도입으로 HRML 파일 외 다른 문서들을 전송할 수 있게 되었다.
 - **한 연결당 하나의 요청을 처리하도록 설계되었다.**
   - RTT란 패킷이 목적지에 도달하고 나서 다시 출발지로 돌아오기까지 걸리는 시간이며 패킷 왕복 시간을 의미한다.
+    - HTTP 패킷 구조 = 헤더 + 바디
+    - 헤더 : HTTP 메서드 방식 중 어떤 방식을 사용하는지, 클라이언트 정보, 브라우저 정보, 접속할 URL 등 과 같은 정보가 담긴다.
+    - 바디 : 보통 비어있다가, 특정 데이터를 담아서 서버에게 요청을 보낼 수 있다.
   - 서버로부터 파일을 가져올 때마다 TCP의 3-웨이 핸드셰이크를 계속 열어야 하기 때문에 RTT가 증가하는 문제점이 발생한다. 즉, 성능 저하가 발생한다.
 
 
@@ -93,6 +98,9 @@ HTTP/1.0에서 비연결성으로 인해 발생하는 성능 저하 문제를 �
 ## HTTP/2
 
 HTTP/2는 HTTP/1.1를 완전하게 재작성한 것이 아닌 **성능에 초첨을 맞추어 수정한 버전**이다. 멀티플렉싱, 헤더 압축, 서버 푸시, 요청의 우선순위 처리를 지원하는 SPDY에서 파생된 프로토콜이다.
+- SPDY란 더 효율적이고 빠른 HTTP를 위해 구글이 만든 새로운 프로토콜이다. HTTP를 대체하는 프로토콜이 아닌 HTTP를 통한 전송을 재정의하는 형태로 구현되었기 떄문에 전송 계층의 구현만 변경하면 기존 HTTP 서버 프로그램을 그대로 SPDY에서 사용할 수 있었다.
+
+  <img src="https://blog.kakaocdn.net/dn/GfBZh/btrRmT2CnsQ/tIyrBAkIc9VpssiSi6o0w0/img.png" width="350">
 
 
 
@@ -150,9 +158,10 @@ HTTP/1.1의 경우, 이전 요청과 중복되는 헤더도 똑같이 전송하�
 Static/Dynamic Header Table을 이용하여 헤더에 중복값이 존재하는지 확인하여 중복 Header를 검출한다. 중복된 헤더인 경우, index값만 전송하고 중복되지 않은 해더인 경우, 헤더 정보의 값을 Huffman Encoding 기법으로 인코딩 처리하여 전송한다. 
 
 Huffman Encoding 기법은 문자열을 문자 단위로 쪼개 빈도수를 세어 빈도가 높은 정보는 높은 비트 수를 사용하여 표현하고 빈도가 낮은 정보는 비트 수를 많이 사용하여 표현해서 **전체 데이터의 표현에 필요한 비트양을 줄이는 원리**이다.
+  
+  <img src="https://postfiles.pstatic.net/MjAxNzA4MDJfNTUg/MDAxNTAxNjUyOTgxNzIx.hGgNhYSKm_tLb09c5CkqJLnePpr6kE1clKB14cOpf8cg.lneogxhEr46tRZzKN58Dk6PezURJVWbulPwhpW5lCAUg.PNG.whwo161/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2017-08-02_%EC%98%A4%ED%9B%84_2.49.10.png?type=w966" width="400">
 
-
-
+  위 그림과 같이 전체 문자열에서 각 문자의 빈도 툥계를 파악한 후, 문자의 빈도를 기준으로 허프만 트리를 만든다. 생성한 허프만 트리를 이용해 문자를 비트로 나타낼 수 있다.
 ### 서버 푸시(Server Push)
 
 HTTP/1.1에서는 클라이언트가 서버에 요청을 해야 파일을 다운받을 수 있었다면, **HTTP/2는 서버 푸시를 통해 클라이언트 요청 없이 서버가 바로 리소스를 푸시할 수 있다.**
@@ -190,3 +199,9 @@ https://web.dev/performance-http2/
 https://youtu.be/xcrjamphIp4
 
 https://inpa.tistory.com/entry/WEB-%F0%9F%8C%90-HTTP-20-%ED%86%B5%EC%8B%A0-%EA%B8%B0%EC%88%A0-%EC%9D%B4%EC%A0%9C%EB%8A%94-%ED%99%95%EC%8B%A4%ED%9E%88-%EC%9D%B4%ED%95%B4%ED%95%98%EC%9E%90#http_2.0_+_push_%ED%86%B5%EC%8B%A0_%EA%B3%BC%EC%A0%95
+
+https://hec-ker.tistory.com/368
+
+https://free-eunb.tistory.com/41
+
+https://blog.naver.com/PostView.nhn?blogId=whwo161&logNo=221065253075
