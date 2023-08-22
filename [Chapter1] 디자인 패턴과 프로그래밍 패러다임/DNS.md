@@ -10,9 +10,13 @@
 
 확인자가 레코드를 찾을 수 없는 경우, DNS 클라이언트는 DNS 서버 (일반적으로 DNS 재귀 확인자)가, 요청한 자원 레코드 또는 오류 메시지를 사용하여 응답하도록 요구합니다.
 
+<img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/3NOmAzkfPG8FTA8zLc7Li8/8efda230b212c0de2d3bbcb408507b1e/dns_record_request_sequence_recursive_resolver.png" width="600">
+
 #### 반복 쿼리
 
 이 경우, DNS 클라이언트는 DNS서버가 가능한 최상의 응답을 반환하도록 합니다. 쿼리한 DNS 서버가 쿼리 이름과 일치하는 이름을 갖고 있지 않은 경우, 하위 수준의 도메인 네임스페이스에 대한 권한 있는 DNS 서버에 대한 참조를 반환합니다. 그러면 DNS 클라이언트가 참조 주소를 쿼리합니다. 이 프로세스는 오류 또는 제한 시간 초과가 발생할 때까지 추가 DNS 서버가 쿼리 체인을 중단한 상태로 계속됩니다.
+
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fblmzhk%2FbtrNXtOOv8e%2F65C9MftVueYKEA103za5ok%2Fimg.png" width="600">
 
 #### 비재귀 쿼리
 
